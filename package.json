@@ -1,0 +1,23 @@
+{
+  "name": "c4drawless",
+  "version": "1.0.0",
+  "dependencies": {
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "serverless-functions-base-path": "^1.0.32"
+  },
+  "scripts": {
+    "test": "sls invoke test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thalees/c4drawless.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thalees/c4drawless/issues"
+  },
+  "homepage": "https://github.com/thalees/c4drawless#readme"
+}
