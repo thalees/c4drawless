@@ -9,14 +9,14 @@ module.exports.handle = (event, _context, callback) => {
 
   const params = {
     TableName: process.env.SCREENSHOT_TABLE,
-    IndexName : "userIdIndex",
-    KeyConditionExpression: "userId = :userId",
-    ExpressionAttributeValues: {
-        ":userId": userId,
-    }
-  };
+    FilterExpression: "#userId = :userId",
+    ExpressionAttributeNames: {
+        "#userId": "userId",
+    },
+    ExpressionAttributeValues: { ":userId": userId }
+  }
 
-  dynamoDbConnection.query(params, (error, result) => {
+  dynamoDbConnection.scan(params, (error, result) => {
     if (error) {
       console.error(error);
       callback(null, {
