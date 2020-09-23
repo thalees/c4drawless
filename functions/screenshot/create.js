@@ -6,22 +6,24 @@ const uuid = require('uuid');
 const S3 = new AWS.S3()
 const dynamoDbConnection = new AWS.DynamoDB.DocumentClient();
 
-module.exports.handler = async (event) => {
+module.exports.handler = (event, _context, callback) => {
   const userId = event.pathParameters.userId;
+  const data = JSON.parse(event.body);
 
-  const { key } = record.s3.object;
+  // const { key } = record.s3.object;
 
-  const image = await S3.getObject({
-    Bucket: process.env.SCREENSHOT_BUCKET_NAME,
-    Key: key
-  }).promise();
+  // const image = await S3.getObject({
+  //   Bucket: process.env.SCREENSHOT_BUCKET_NAME,
+  //   Key: key
+  // }).promise();
 
   const params = {
-    TableName: process.env.SCHEMA_TABLE,
+    TableName: process.env.SCREENSHOT_TABLE,
     Item: {
       screenshotId: uuid.v4(),
-      schemaId: userId,
-      url: image.url,
+      userId: userId,
+      schemaId: data.schemaId,
+      url: data.url,
     },
   };
 
