@@ -86,4 +86,4 @@ To run lambdas tests, run the following command:
 ```
 ---
 
-> Team [@c4drawless/team](https://github.com/orgs/c4draw/people) &nbsp;&middot;&nbsp;
+> Team [@C4Draw/team](https://github.com/orgs/c4draw/people) &nbsp;&middot;&nbsp;
