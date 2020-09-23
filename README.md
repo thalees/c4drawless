@@ -1,5 +1,5 @@
 <h1 align="left">
-  C4 Draw
+  C4 Drawss
   <img align="right" height="28px" src="https://avatars0.githubusercontent.com/u/44036562?s=200&v=4"/>
 </h1>
 
@@ -24,6 +24,21 @@
 - [Github Actions CI/CD](https://github.com/features/actions)
 - [Serverless framework](https://www.serverless.com/)
 - NPM
+
+## Endpoints Documentation
+
+This project has all its endpoints documented in **Postman** as a **shared collection**. If you want to see the documentation on the **swagger**.
+
+To get a copy of its endpoints, just click the buttons below:
+
+<p align="center">
+  <a href="https://app.getpostman.com/run-collection/8a8c9ec45e6171fb77aa">
+    <img src="https://run.pstmn.io/button.svg">
+  </a>
+  <a href="https://app.swaggerhub.com/apis/thalees/c4-draw/1.0.0">
+    <img width="100" height="30" src="https://miro.medium.com/max/1380/1*aKVg84SP5oPV9fwOnbl6yQ.png">
+  </a>
+</p>
 
 ## Installation
 
