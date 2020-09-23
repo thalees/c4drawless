@@ -3,59 +3,25 @@
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
 
+const S3 = new AWS.S3()
 const dynamoDbConnection = new AWS.DynamoDB.DocumentClient();
 
-module.exports.handle = async ({ Records: records }, context) => {
-  await Promise.all(
-    records.map(async record => {
-      const { key } = record.s3.object;
-
-      const image = await S3.getObject({
-        Bucket: process.env.bucket,
-        Key: key
-      }).promise();
-
-      const optimized = await sharp(image.Body)
-        .resize(1280, 720, { fit: "inside", withoutEnlargement: true })
-        .toFormat("jpeg", { progressive: true, quality: 50 })
-        .toBuffer();
-
-      await S3.putObject({
-        Body: optimized,
-        Bucket: process.env.bucket,
-        ContentType: "image/jpeg",
-        Key: `compressed/${basename(key, extname(key))}.jpg`
-      }).promise();
-    })
-  );
-
-    return {
-      statusCode: 301,
-      body: { ok: true }
-    };
-
-
-
-
-
-
-
-
-
-// --
-
-  const timestamp = new Date().getTime();
-  const data = JSON.parse(event.body);
+module.exports.handler = async (event) => {
   const userId = event.pathParameters.userId;
 
+  const { key } = record.s3.object;
+
+  const image = await S3.getObject({
+    Bucket: process.env.SCREENSHOT_BUCKET_NAME,
+    Key: key
+  }).promise();
+
   const params = {
-    TableName: process.env.SCREENSHOT_TABLE,
+    TableName: process.env.SCHEMA_TABLE,
     Item: {
       screenshotId: uuid.v4(),
-      userId: userId,
-      url: data.url,
-      createdAt: timestamp,
-      updatedAt: timestamp,
+      schemaId: userId,
+      url: image.url,
     },
   };
 
@@ -81,12 +47,3 @@ module.exports.handle = async ({ Records: records }, context) => {
     callback(null, response);
   });
 };
-
-
-// - [ ] POST /users/{user_id}/screenshots
-//   - DynamoDB
-//   - S3
-//   - Salvar a imagem enviada no S3
-//   - Buildar o Json que será salvo no DynamoDB
-
-
