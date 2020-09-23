@@ -10,7 +10,7 @@ provider:
   environment:
     SCHEMA_TABLE: schema-table-${self:provider.stage}
     SCREENSHOT_TABLE: screenshot-table-${opt:stage, self:provider.stage}
-    SCREENSHOT_BUCKET_NAME: ${self:service}-screenshot-bucket-${self:provider.stage}
+    SCREENSHOT_BUCKET_NAME: s3-bucket-c4drawless-screenshot-bucket-dev
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -40,24 +40,15 @@ functions:
     handler: screenshot/create.handler
     events:
       - s3:
-          bucket: rocketnodeserverless
+          bucket: ${self:custom.bucketname}
           event: s3:ObjectCreated:*
           rules:
-            - prefix: screenshot/
-            - suffix: .jpg
-      - s3:
-          bucket: rocketnodeserverless
-          event: s3:ObjectCreated:*
-          rules:
-            - prefix: screenshot/
-            - suffix: .png
+              - prefix: uploads/
+              - suffix: .png
+          existing: true
 
 resources:
   Resources:
-    ScreenshotBucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.bucketname}
     SchemaDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
