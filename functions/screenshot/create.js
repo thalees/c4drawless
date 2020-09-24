@@ -7,6 +7,7 @@ const S3 = new AWS.S3()
 const dynamoDbConnection = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handler = (event, _context, callback) => {
+  const timestamp = new Date().getTime();
   const userId = event.pathParameters.userId;
   const data = JSON.parse(event.body);
 
@@ -24,6 +25,8 @@ module.exports.handler = (event, _context, callback) => {
       userId: userId,
       schemaId: data.schemaId,
       url: data.url,
+      createdAt: timestamp,
+      updatedAt: timestamp,
     },
   };
 
