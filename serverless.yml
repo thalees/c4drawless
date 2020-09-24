@@ -7,9 +7,8 @@ provider:
   runtime: nodejs12.x
   region: us-east-1
   environment:
-    SCHEMA_TABLE: schema-table-${self:provider.stage}
+    SCHEMA_TABLE: schema-table-${opt:stage, self:provider.stage}
     SCREENSHOT_TABLE: screenshot-table-${opt:stage, self:provider.stage}
-    SCREENSHOT_BUCKET_NAME: s3-bucket-c4drawless-screenshot-bucket-dev
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -24,7 +23,6 @@ provider:
 
 custom:
   functionsBasePath: functions
-  bucketname: ${self:provider.environment.SCREENSHOT_BUCKET_NAME}
 
 functions:
   about:
@@ -37,14 +35,6 @@ functions:
     handler: screenshot/list.handle
   createScreenshot:
     handler: screenshot/create.handler
-    events:
-      - s3:
-          bucket: ${self:custom.bucketname}
-          event: s3:ObjectCreated:*
-          rules:
-              - prefix: uploads/
-              - suffix: .png
-          existing: true
 
 resources:
   Resources:
