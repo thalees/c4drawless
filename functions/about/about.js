@@ -8,7 +8,7 @@ module.exports.handle = (_event, _context, callback) => {
       'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({
-      version: '1.0.0'
+      version: '1.0.1'
     }),
   };
   callback(null, response);
