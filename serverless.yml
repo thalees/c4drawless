@@ -5,7 +5,6 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
-  stage: dev
   region: us-east-1
   environment:
     SCHEMA_TABLE: schema-table-${self:provider.stage}
