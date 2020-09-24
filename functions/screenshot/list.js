@@ -22,7 +22,7 @@ module.exports.handle = (event, _context, callback) => {
       callback(null, {
         statusCode: 500,
         headers: { 'Content-Type': 'text/plain' },
-        body: "Couldn't find the schema item",
+        body: "Couldn't find the screenshot item",
       });
       return;
     }
